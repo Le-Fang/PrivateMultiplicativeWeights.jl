@@ -5,6 +5,7 @@ Compute maximum error of synthetic data on the query set. Result is not
 differentially private.
 """
 function maximum_error(mw::MWState)
+    println("edddddd")
     norm(evaluate(mw.queries, mw.synthetic) - mw.real_answers, Inf)
 end
 
