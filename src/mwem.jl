@@ -65,6 +65,9 @@ function mwem(queries::Queries, data::Data, ps=MWParameters())
         @printf("0\t %.3f\t\t %.3f\n", error, time)
     end
 
+    
+    weight_sum = mwstate.synthetic.weights
+    
     # Iterations
     for t = 1:ps.iterations
         time = @elapsed begin
@@ -84,12 +87,25 @@ function mwem(queries::Queries, data::Data, ps=MWParameters())
             end
         end
 
+        # update the weight sum
+        weight_sum += mwstate.synthetic.weights
+        
+
         if ps.verbose
             error_mean = mean_squared_error(mwstate)
             error_max = maximum_error(mwstate)
             @printf("itr: %d\t mean_error: %.3f\t\t %.3f\n", t, error_mean, time)
             @printf("itr: %d\t max_error: %.3f\t\t %.3f\n", t, error_max, time)
         end
+    end
+
+    #calculate the average weight and write the f into a file
+    avg_weight = weight_sum / ps.iterations
+    q_index = noisy_max(mwstate, ps.noisy_max_budget)
+    query_star = get(mwstate.queries, q_index)
+    f_value = mwstate.real_answers[q_index] - dot(query_star.weights, avg_weight)
+    open("convergence.txt", "a") do file
+        write(file, string(f_value, "\n"))
     end
 
     mwstate
