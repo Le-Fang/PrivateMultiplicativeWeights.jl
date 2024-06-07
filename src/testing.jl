@@ -17,7 +17,7 @@ end
 
 #read from convergence.txt, calculate the average
 lines = readlines("convergence.txt")
-avg_data = zeros(10)
+avg_data = zeros(largest_iterations)
 
 for i in 1:n*largest_iterations
     value = parse(Float64, lines[i])
