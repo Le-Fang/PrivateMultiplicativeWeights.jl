@@ -1,3 +1,10 @@
+This is forked from PrivateMultiplicativeWeights.jl
+The purpose of this project is to test different variants of PMW and explore how fast they converge.
+Experiments can be ran by running testing.jl
+Outputs will be stored on convergence_simulation.txt
+
+
+
 # PrivateMultiplicativeWeights.jl
 
 This package implements `MWEM`, a simple and practical algorithm for differentially private data release.
