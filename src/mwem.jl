@@ -105,7 +105,7 @@ function mwem(queries::Queries, data::Data, ps=MWParameters())
     query_star = get(mwstate.queries, q_index)
     f_value = mwstate.real_answers[q_index] - dot(query_star.weights, avg_weight)
     open("convergence.txt", "a") do file
-        write(file, string(f_value, "\n"))
+        write(file, string(abs(f_value), "\n"))
     end
 
     mwstate

@@ -5,11 +5,11 @@ Pkg.instantiate()
 using PrivateMultiplicativeWeights
 using Statistics
 
-n = 10
-largest_iterations = 10
+n = 20
+largest_iterations = 30
 for i in 1:largest_iterations
     for j in 1:n #run n times
-        d, n = 30, 5000
+        d, n = 20, 1000
         data_matrix = rand(0:1, d ,n)
         mw = mwem(Parities(d, 3), Tabular(data_matrix), MWParameters(iterations=i,))
     end
